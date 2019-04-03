@@ -4,7 +4,8 @@
   "description": "Server for Mytracky App",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "copy": "scp -r config controllers models routes package.json server.js zeus@84.201.151.75:/var/www/express-api"
   },
   "author": "Andrey Podkovyrov",
   "license": "MIT",
