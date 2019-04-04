@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const TrackSchema = require('./Track');
 
 //Create User Schema
 const UserSchema = new Schema ({
@@ -20,7 +19,10 @@ const UserSchema = new Schema ({
   telegram: {
     type: String
   },
-  tracks: [TrackSchema],
+  tracks: [{
+    type: Schema.Types.ObjectId,
+    ref: 'track'
+  }]
 },
 {
   versionKey: false

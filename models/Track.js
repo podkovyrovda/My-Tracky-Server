@@ -1,20 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const dates = new Schema ({
-  date: {
-    type: Date,
-    default: Date.now
-  },
-  status: {
-    type: Boolean,
-    default: true
-  }
-},
-{
-  versionKey: false
-})
-
 //Create Track Schema
 module.exports = TrackSchema = new Schema ({
   name: {
@@ -29,8 +15,12 @@ module.exports = TrackSchema = new Schema ({
     type: Boolean,
     default: true
   },
-  _dates: [dates]
-},
+  _days: [{
+    type: Schema.Types.ObjectId,
+    ref: 'day'
+  }]},
 {
   versionKey: false
 });
+
+module.exports = Track = mongoose.model('track', TrackSchema)

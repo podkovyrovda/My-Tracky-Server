@@ -1,38 +1,30 @@
-// Model
+// Models
 const User = require('../models/User');
+const Track = require('../models/Track');
 
-exports.getAll = (req, res) => {
-  User.findById(req.params.id)
-  .then(user => res.json(user.tracks))
-};
+module.exports = { 
+  getAll: (req, res) => {
+    User.findById(req.params.user_id)
+    .populate('tracks')
+    .then(user => res.json(user.tracks))
+  },
 
-exports.addNew = (req, res) => {
-  User.updateOne(
-    {_id: req.params.id},
-    { $push: { tracks: { name: req.body.name }}}
-  )
-  .then(() => { 
-    res.sendStatus(200)
-  })
-};
+  addNew: (req, res) => {
+    const newTrack = new Track(req.body);
+    User.findById(req.params.user_id)
+      .then(user => {
+        newTrack.save();
+        user.tracks.push(newTrack);
+        user.save();
+        res.json(user);
+      });
+  },
 
-exports.deleteOne = (req, res) => {
-  User.updateOne(
-    {_id: req.params.id},
-    { $pull: { tracks: { _id: req.params.trackId }}}
-  )
-  .then(() => { 
-    res.sendStatus(200)
-  })
-};
+  deleteOne: (req, res) => {
+    
+  },
 
-exports.updateOne = (req, res) => {
-  User.updateOne(
-    {'tracks._id': req.params.trackId},
-    {'$set': { 
-      'tracks.$.name': req.body.name,
-      'tracks.$.active': req.body.active,
-      'tracks.$._id': req.params.trackId
-    }})
-    .then(() => res.sendStatus(200))
-};
+  updateOne: (req, res) => {
+
+  }
+}
