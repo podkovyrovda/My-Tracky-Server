@@ -4,13 +4,13 @@ const User = require('../models/User');
 module.exports = {
   getAll: (req, res) => {
     User.find()
-      .then(users => res.json(users))
+      .then(users => res.json(users));
   },
   
   getOne: (req, res) => {
     User.findById(req.params.user_id)
-      .populate('tracks')
-      .then(user => res.json(user))
+      .populate('_tracks')
+      .then(user => res.json(user));
   },
 
   addNew: (req, res) => {
@@ -18,10 +18,13 @@ module.exports = {
     newUser.save().then(user => res.json(user));
   },
 
-  deleteOne: (req, res) => {
-    User.findById(req.params.user_id)
-    .then(user => user.remove()
-      .then(() => res.sendStatus(200)))
-    .catch(() => res.sendStatus(404));
+  update: (req, res) => {
+    User.findOneAndUpdate(req.params.user_id, req.body)
+      .then(() => res.sendStatus(200));
+  },
+
+  delete: (req, res) => {
+    User.findOneAndDelete(req.params.user_id)
+      .then(() => res.sendStatus(200));
   }
 }

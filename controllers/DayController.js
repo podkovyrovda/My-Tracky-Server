@@ -3,27 +3,31 @@ const User = require('../models/User');
 const Day = require('../models/Day');
 const Track = require('../models/Track');
 
-exports.getAll = (req, res) => {
-  Track.findById(req.params.track_id)
-    .populate('_days')
-    .then((track) => res.json(track))
-};
+module.exports = {
+  getAll: (req, res) => {
+    Track.findById(req.params.track_id)
+      .populate('_days')
+      .then((track) => res.json(track._days));
+  },
 
-exports.addNew = (req, res) => {
-  const newDay = new Day(req.body);
-  Track.findById(req.params.track_id)
-    .then(track => {
-      newDay.save();
-      track._days.push(newDay);
-      track.save();
-      res.json(track);
-    });
-};
+  getOne: (req, res) => {
+    Day.findById(req.params.day_id)
+    .then(day => res.json(day));
+  },
 
-exports.deleteOne = (req, res) => {
+  addNew: (req, res) => {
+    const newDay = new Day(req.body);
+    Track.findById(req.params.track_id)
+      .then(track => {
+        newDay.save();
+        track._days.push(newDay);
+        track.save();
+        res.json(track);
+      });
+  },
 
-};
-
-exports.updateOne = (req, res) => {
-
-};
+  delete: (req, res) => {
+    Day.findOneAndDelete(req.params.day_id)
+    .then(() => res.sendStatus(200));
+  }
+}

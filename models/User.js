@@ -1,8 +1,17 @@
 const mongoose = require('mongoose');
+const shortid = require('shortid');
 const Schema = mongoose.Schema;
 
 //Create User Schema
 const UserSchema = new Schema ({
+  _id: {
+    type: String,
+    default: shortid.generate
+  },
+  _tracks: [{
+    type: String,
+    ref: 'track'
+  }],
   name: {
     type: String,
     required: true
@@ -18,14 +27,10 @@ const UserSchema = new Schema ({
   },
   telegram: {
     type: String
-  },
-  tracks: [{
-    type: Schema.Types.ObjectId,
-    ref: 'track'
-  }]
+  }
 },
 {
   versionKey: false
 });
 
-module.exports = User = mongoose.model('user', UserSchema)
+module.exports = User = mongoose.model('user', UserSchema);

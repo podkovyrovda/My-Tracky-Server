@@ -1,5 +1,4 @@
 const express = require('express');
-
 const router = express.Router();
 
 // Controllers
@@ -13,19 +12,24 @@ router.route('/')
 
 router.route('/:user_id')
   .get(User.getOne)
-  .delete(User.deleteOne);
+  .put(User.update)
+  .delete(User.delete);
 
 router.route('/:user_id/tracks')
   .get(Track.getAll)
   .post(Track.addNew);
 
-router.route('/:user_id/tracks/:track_d')
-  .delete(Track.deleteOne)
-  .put(Track.updateOne);
+router.route('/:user_id/tracks/:track_id')
+  .get(Track.getOne)
+  .delete(Track.delete)
+  .put(Track.update);
 
 router.route('/:user_id/tracks/:track_id/days')
   .get(Day.getAll)
-  .post(Day.addNew)
-  .delete(Day.deleteOne);
+  .post(Day.addNew);
+
+router.route('/:user_id/tracks/:track_id/days/:day_id')
+  .get(Day.getOne)
+  .delete(Day.delete);
 
 module.exports = router;

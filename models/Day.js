@@ -1,10 +1,15 @@
 const mongoose = require('mongoose');
+const shortid = require('shortid');
 const Schema = mongoose.Schema;
 
 const DaySchema = new Schema ({
+  _id: {
+    type: String,
+    default: shortid.generate
+  },
   date: {
     type: Date,
-    default: Date.now
+    default: Date.now()
   },
   status: {
     type: Boolean,
@@ -15,4 +20,4 @@ const DaySchema = new Schema ({
   versionKey: false
 })
 
-module.exports = Day = mongoose.model('day', DaySchema)
+module.exports = Day = mongoose.model('day', DaySchema);

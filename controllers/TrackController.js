@@ -5,8 +5,14 @@ const Track = require('../models/Track');
 module.exports = { 
   getAll: (req, res) => {
     User.findById(req.params.user_id)
-    .populate('tracks')
-    .then(user => res.json(user.tracks))
+    .populate('_tracks')
+    .then(user => res.json(user._tracks));
+  },
+
+  getOne: (req, res) => {
+    Track.findById(req.params.track_id)
+    .populate('_days')
+    .then(track => res.json(track));
   },
 
   addNew: (req, res) => {
@@ -14,17 +20,19 @@ module.exports = {
     User.findById(req.params.user_id)
       .then(user => {
         newTrack.save();
-        user.tracks.push(newTrack);
+        user._tracks.push(newTrack);
         user.save();
         res.json(user);
       });
   },
 
-  deleteOne: (req, res) => {
-    
+  update: (req, res) => {
+    Track.findOneAndUpdate(req.params.track_id, req.body)
+      .then(() => res.sendStatus(200));
   },
 
-  updateOne: (req, res) => {
-
+  delete: (req, res) => {
+    Track.findOneAndRemove(req.params.track_id)
+      .then(() => res.sendStatus(200));
   }
 }
