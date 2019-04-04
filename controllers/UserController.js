@@ -4,12 +4,19 @@ const User = require('../models/User');
 module.exports = {
   getAll: (req, res) => {
     User.find()
+      .populate({
+        path: '_tracks',
+        populate: { path: '_days' }
+      })
       .then(users => res.json(users));
   },
   
   getOne: (req, res) => {
     User.findById(req.params.user_id)
-      .populate('_tracks')
+      .populate({
+        path: '_tracks',
+        populate: { path: '_days' }
+      })
       .then(user => res.json(user));
   },
 

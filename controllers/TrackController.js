@@ -5,8 +5,11 @@ const Track = require('../models/Track');
 module.exports = { 
   getAll: (req, res) => {
     User.findById(req.params.user_id)
-    .populate('_tracks')
-    .then(user => res.json(user._tracks));
+      .populate({
+        path: '_tracks',
+        populate: { path: '_days' }
+      })
+      .then(user => res.json(user._tracks));
   },
 
   getOne: (req, res) => {
