@@ -5,25 +5,49 @@
 #### `GET` /api/users 
 Get all users
 
-#### `GET` /api/users/:id  
-Get user by id
+#### `GET` /api/users/:user_id  
+Get the user by id
 
 #### `POST` /api/users 
-Create New User
+Create a New User
 
-#### `DELETE` /api/users/:id  
-Delete A User
+#### `PUT` /api/users/:user_id 
+Update the User
+
+#### `DELETE` /api/users/:user_id  
+Delete the User
 
 ---
 
 ## tracks
 
-#### `GET` api/users/:id/tracks  
+#### `GET` api/users/:user_id/tracks  
 Get all tracks by user id
 
-#### `POST` /api/users/:id/tracks  
-Add new track by user id
+#### `GET` api/users/:user_id/tracks/:track_id 
+Get the track by track id
 
-#### `DELETE` /api/users/:id/tracks/:trackId  
-Delete track by id
+#### `POST` /api/users/:user_id/tracks  
+Add a new track by user id
 
+#### `PUT` /api/users/:user_id/tracks/:track_id  
+Update the track by track id
+
+#### `DELETE` /api/users/:user_id/tracks/:track_id  
+Delete the track by id
+
+---
+
+## days
+
+#### `GET` api/users/:user_id/tracks/:track_id/days
+Get all days by track id
+
+#### `GET` api/users/:user_id/tracks/:track_id/days/:day_id
+Get the day by day id
+
+#### `POST` /api/users/:user_id/tracks/:track_id/days
+Add a new track by user id
+
+#### `DELETE` /api/users/:user_id/tracks/:track_id
+Delete the track by id
