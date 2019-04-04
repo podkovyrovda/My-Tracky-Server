@@ -47,7 +47,7 @@ Get all days by track id
 Get the day by day id
 
 #### `POST` /api/users/:user_id/tracks/:track_id/days
-Add a new track by user id
+Add a new day by track id
 
-#### `DELETE` /api/users/:user_id/tracks/:track_id
-Delete the track by id
+#### `DELETE` /api/users/:user_id/tracks/:track_id/days/day_id
+Delete the day by day id
